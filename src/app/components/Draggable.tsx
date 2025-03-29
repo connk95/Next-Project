@@ -1,17 +1,14 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
-interface DraggableProps {
+const Draggable: React.FC<{
+  zIndex?: number;
   children: ReactNode;
-}
-
-const Draggable: React.FC<DraggableProps> = ({ children }) => {
+  bringToFront?: () => void;
+}> = ({ zIndex, children, bringToFront }) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [position, setPosition] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const startPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const startPos = useRef({ x: 0, y: 0 });
 
   const onMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -24,12 +21,13 @@ const Draggable: React.FC<DraggableProps> = ({ children }) => {
     [isDragging]
   );
 
-  const onMouseUp = () => {
-    setIsDragging(false);
-  };
+  const onMouseUp = () => setIsDragging(false);
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+    if (bringToFront) {
+      bringToFront();
+    }
     setIsDragging(true);
     startPos.current = { x: e.clientX - position.x, y: e.clientY - position.y };
   };
@@ -45,7 +43,12 @@ const Draggable: React.FC<DraggableProps> = ({ children }) => {
 
   return (
     <div
-      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+      className="draggable"
+      style={{
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        position: "absolute",
+        zIndex,
+      }}
       onMouseDown={onMouseDown}
     >
       {children}

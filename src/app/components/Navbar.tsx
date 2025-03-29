@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
         display: "flex",
         alignItems: "center",
         padding: "0 20px",
-        zIndex: 1000,
+        zIndex: 10000,
       }}
     >
       <div>
@@ -62,7 +62,13 @@ const Navbar: React.FC = () => {
         </h3>
       </div>
       <Draggable>
-        <div className="content-box menu-box">
+        <div
+          className="content-box menu-box"
+          style={{
+            transition: "font-size 0.3s ease-in-out, top 0.3s ease-in-out",
+            top: isFixed ? "3.2rem" : "5rem",
+          }}
+        >
           <div className="tree-container">
             <Tree name="Menu">
               <Tree name="Products">

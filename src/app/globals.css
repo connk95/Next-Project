@@ -8,7 +8,6 @@ body,
   opacity: 1;
   background-image: radial-gradient(rgb(100, 100, 100) 0.5px, white 0.5px);
   background-size: 20px 20px;
-  z-index: -1;
 }
 
 /* body:hover {
@@ -43,8 +42,7 @@ body {
 }
 
 .content-box {
-  /* position: absolute; */
-  position: fixed;
+  position: absolute;
   width: 20rem;
   background: white;
   box-shadow: black 0px 0px 0px 2px, black 0px 4px 6px -1px,
@@ -53,15 +51,22 @@ body {
   filter: blur(2px);
   user-select: none;
   cursor: grab;
-  z-index: 500;
 }
 
 .content-box:hover {
-  filter: blur(0px);
+  filter: blur(0px) !important;
   transition: filter 0.3s;
 }
 
-.box-1 {
+.content-box * {
+  cursor: inherit;
+}
+
+.content-box button {
+  cursor: pointer !important;
+}
+
+/* .box-1 {
   left: 10rem;
   top: 10rem;
 }
@@ -84,7 +89,7 @@ body {
 .box-5 {
   top: 52rem;
   left: 48rem;
-}
+} */
 
 .header {
   width: 100%;
@@ -118,7 +123,7 @@ body {
 .menu-box {
   top: 5rem;
   left: 76rem;
-  filter: none;
+  filter: none !important;
   width: auto;
   z-index: 10001;
 }
@@ -208,14 +213,14 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-.toggle-blob {
+.toggle-blur {
   position: fixed;
   right: 2rem;
   bottom: 2rem;
-  z-index: 1000;
+  z-index: 10000;
 }
 
-.toggle-blob > p {
+.toggle-blur > p {
   margin: 0;
 }
 
@@ -244,7 +249,7 @@ input:checked + .slider:before {
 
 .parallax-box {
   position: absolute;
-  z-index: 1000;
+  /* z-index: 1000; */
 }
 
 /* index.css */
@@ -279,6 +284,11 @@ input:checked + .slider:before {
   fill: #24292e;
 }
 
+.tree-frame button {
+  background-color: none;
+  color: none;
+}
+
 .tree-title {
   vertical-align: middle;
 }
@@ -297,4 +307,8 @@ input:checked + .slider:before {
   margin-right: 10px;
   cursor: pointer;
   vertical-align: middle;
+}
+
+.draggable {
+  cursor: grab;
 }
